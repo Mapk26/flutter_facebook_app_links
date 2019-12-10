@@ -3,12 +3,13 @@ version '1.0'
 
 buildscript {
     repositories {
+        mavenCentral()
         google()
         jcenter()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.2.1'
+        classpath 'com.android.tools.build:gradle:3.3.1'
     }
 }
 
@@ -30,5 +31,10 @@ android {
     }
     lintOptions {
         disable 'InvalidPackage'
+    }
+
+    dependencies {
+        implementation 'com.facebook.android:facebook-core:[5,6)'
+        implementation 'com.facebook.android:facebook-applinks:[5,6)'
     }
 }
