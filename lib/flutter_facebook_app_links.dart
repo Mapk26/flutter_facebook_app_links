@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'dart:io' show Platform;
 import 'package:flutter/services.dart';
 
 class FlutterFacebookAppLinks {
@@ -11,10 +11,17 @@ class FlutterFacebookAppLinks {
     return version;
   }
 
-  static Future<Map<String, String>> initFBLinks() async {
-    var data = await _channel.invokeMethod('initFBLinks');
-    final Map<String, String> init = new Map.from(data);
-    return init;
+  static Future<dynamic> initFBLinks() async {
+
+    if (Platform.isAndroid) {
+      var data = await _channel.invokeMethod('initFBLinks');
+      final Map<String, String> init = new Map.from(data);
+      return init;
+    } else if (Platform.isIOS) {
+      var resutl = await _channel.invokeMethod('initFBLinks');
+      return resutl;
+    }
+    
   }
 
 }
