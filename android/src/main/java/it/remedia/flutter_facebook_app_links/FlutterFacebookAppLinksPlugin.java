@@ -3,7 +3,7 @@ package it.remedia.flutter_facebook_app_links;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
-import android.util.Log;
+//import android.util.Log;
 
 import com.facebook.applinks.AppLinkData;
 import com.facebook.FacebookSdk;
@@ -55,7 +55,7 @@ public class FlutterFacebookAppLinksPlugin implements MethodCallHandler {
   }
 
   private void initFBLinks(Result result) {
-    Log.d("FB_APP_LINKS", "Facebook App Links initialized");
+    //Log.d("FB_APP_LINKS", "Facebook App Links initialized");
 
     final Map<String, String> data = new HashMap<>();
     final Result resultDelegate = result;
@@ -73,11 +73,11 @@ public class FlutterFacebookAppLinksPlugin implements MethodCallHandler {
                 if(appLinkData!=null) {
 
                   if(appLinkData.getTargetUri()!=null){
-                    Log.d("FB_APP_LINKS", "Deferred Deeplink Received: " + appLinkData.getTargetUri().toString());
+                    //Log.d("FB_APP_LINKS", "Deferred Deeplink Received: " + appLinkData.getTargetUri().toString());
                     data.put("deeplink", appLinkData.getTargetUri().toString());
                   }
 
-                  Log.d("FB_APP_LINKS", "Deferred Deeplink Received: " + appLinkData.getPromotionCode());
+                  //Log.d("FB_APP_LINKS", "Deferred Deeplink Received: " + appLinkData.getPromotionCode());
                   if(appLinkData.getPromotionCode()!=null)
                     data.put("promotionalCode", appLinkData.getPromotionCode());
                   else
@@ -94,7 +94,7 @@ public class FlutterFacebookAppLinksPlugin implements MethodCallHandler {
                   mainHandler.post(myRunnable);
 
                 }else{
-                  Log.d("FB_APP_LINKS", "Deferred Deeplink Received: null link");
+                  //Log.d("FB_APP_LINKS", "Deferred Deeplink Received: null link");
 
 //                  data.put("deeplink", "a deeplink test here");
 //                  data.put("promotionalCode", "a promo test here");

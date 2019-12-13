@@ -49,16 +49,16 @@ public class SwiftFlutterFacebookAppLinksPlugin: NSObject, FlutterPlugin {
         if let url = url {
           print("FB APP LINKS getting url ")
             if #available(iOS 10, *) {
-              print("FB APP LINKS getting url iOS 10+ ")
+              //print("FB APP LINKS getting url iOS 10+ ")
               result(url.absoluteString)
                 //UIApplication.shared.open(url, options: [:], completionHandler: nil)
             } else {
-              print("FB APP LINKS getting url iOS 10- ")
+              //print("FB APP LINKS getting url iOS 10- ")
               result(url.absoluteString)
                 //UIApplication.shared.openURL(url)
             }
         }else{
-          print("FB APP LINKS ends with no deeplink ")
+          //print("FB APP LINKS ends with no deeplink ")
           result("")
         }
     }
