@@ -44,6 +44,7 @@ public class SwiftFlutterFacebookAppLinksPlugin: NSObject, FlutterPlugin {
     AppLinkUtility.fetchDeferredAppLink { (url, error) in
         if let error = error {
             print("Received error while fetching deferred app link %@", error)
+            result("error");
         }
 
         if let url = url {
@@ -59,7 +60,7 @@ public class SwiftFlutterFacebookAppLinksPlugin: NSObject, FlutterPlugin {
             }
         }else{
           //print("FB APP LINKS ends with no deeplink ")
-          result("")
+          result("nolink")
         }
     }
   }
