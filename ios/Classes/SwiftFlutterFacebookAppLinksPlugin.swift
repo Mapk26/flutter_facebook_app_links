@@ -4,12 +4,17 @@ import FBSDKCoreKit
 
 public class SwiftFlutterFacebookAppLinksPlugin: NSObject, FlutterPlugin {
 
-  fileprivate var initialLink: String = "xxx"
-  fileprivate var resulter: FlutterResult? = nil
+  //fileprivate var resulter: FlutterResult? = nil
 
   public static func register(with registrar: FlutterPluginRegistrar) {
     let channel = FlutterMethodChannel(name: "plugins.remedia.it/flutter_facebook_app_links", binaryMessenger: registrar.messenger())
     let instance = SwiftFlutterFacebookAppLinksPlugin()
+
+    // Get user consent
+    print("FB APP LINK registering plugin")
+    Settings.isAutoInitEnabled = true
+    ApplicationDelegate.initializeSDK(nil)
+
     registrar.addMethodCallDelegate(instance, channel: channel)
   }
 
@@ -20,8 +25,8 @@ public class SwiftFlutterFacebookAppLinksPlugin: NSObject, FlutterPlugin {
             handleGetPlatformVersion(call, result: result)
             break
         case "initFBLinks":
-            resulter = result
-            print("FB APP LINK started")
+            //resulter = result
+            print("FB APP LINK launched")
             handleFBAppLinks(call, result: result)
             break
         
@@ -38,26 +43,22 @@ public class SwiftFlutterFacebookAppLinksPlugin: NSObject, FlutterPlugin {
 
   private func handleFBAppLinks(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
     print("FB APP LINKS Starting ")
-    // Get user consent
-    Settings.isAutoInitEnabled = true
-    ApplicationDelegate.initializeSDK(nil)
+
     AppLinkUtility.fetchDeferredAppLink { (url, error) in
         if let error = error {
-            print("Received error while fetching deferred app link %@", error)
-            result("error");
+          print("Received error while fetching deferred app link %@", error)
+          result("error");
         }
 
         if let url = url {
           print("FB APP LINKS getting url ")
-            if #available(iOS 10, *) {
-              //print("FB APP LINKS getting url iOS 10+ ")
-              result(url.absoluteString)
-                //UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            } else {
-              //print("FB APP LINKS getting url iOS 10- ")
-              result(url.absoluteString)
-                //UIApplication.shared.openURL(url)
-            }
+          if #available(iOS 10, *) {
+            //print("FB APP LINKS getting url iOS 10+ ")
+            result(url.absoluteString)
+          } else {
+            //print("FB APP LINKS getting url iOS 10- ")
+            result(url.absoluteString)
+          }
         }else{
           //print("FB APP LINKS ends with no deeplink ")
           result("nolink")
