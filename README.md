@@ -1,4 +1,4 @@
-# flutter_facebook_app_links
+# Flutter Facebook App Links
 
 Flutter plugin for [Facebook App Links SDK](https://developers.facebook.com/docs/app-ads/deep-linking/). This plugin must be used to catch deferred deeplinks sent from Facebook after your app has been installed from a FB ADS.
 
@@ -69,9 +69,15 @@ Read through the "[Getting Started with App Events for iOS](https://developers.f
  ## About Facebook App Links
  Please refer to the official SDK documentation for [Android] and [iOS](https://developers.facebook.com/docs/app-ads/deep-linking/).
 
- ## IMPORTANT NOTE about testing deferred deeplinks
+ ## IMPORTANT NOTE
+ ### Testing deferred deep links
 
  To correctly test deferred deeplinks, DO NOT use the preview of your FB ADS campaign.
  Instead, use this tool [APP ADS HELPER](https://developers.facebook.com/tools/app-ads-helper)
 
- 
+ At the end of the page you will find a "Test deep link" button, 
+ click on it and type your custom url scheme (deeplink), for example: myawesomeapp://screen/login
+
+ Select the second checkbox (or both). Remember that to make it works, you'll need the Facebook app installed on your device (Android or iPhone) and you must be logged in with the same account you're using in the Facebook Developers console.
+
+ Your app doesn't need to be published on the store, simply uninstall it and re-install using Android Studio/VSCode or XCode after you've sent the deferred deep link.
