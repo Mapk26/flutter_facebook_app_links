@@ -66,53 +66,50 @@ public class FlutterFacebookAppLinksPlugin implements MethodCallHandler {
     FacebookSdk.setAutoInitEnabled(true);
     FacebookSdk.fullyInitialize();
     AppLinkData.fetchDeferredAppLinkData(mContext,
-            new AppLinkData.CompletionHandler() {
-              @Override
-              public void onDeferredAppLinkDataFetched(AppLinkData appLinkData) {
-                // Process app link data
-                if(appLinkData!=null) {
+      new AppLinkData.CompletionHandler() {
+        @Override
+        public void onDeferredAppLinkDataFetched(AppLinkData appLinkData) {
+          // Process app link data
+          if(appLinkData!=null) {
 
-                  if(appLinkData.getTargetUri()!=null){
-                    //Log.d("FB_APP_LINKS", "Deferred Deeplink Received: " + appLinkData.getTargetUri().toString());
-                    data.put("deeplink", appLinkData.getTargetUri().toString());
-                  }
-
-                  //Log.d("FB_APP_LINKS", "Deferred Deeplink Received: " + appLinkData.getPromotionCode());
-                  if(appLinkData.getPromotionCode()!=null)
-                    data.put("promotionalCode", appLinkData.getPromotionCode());
-                  else
-                    data.put("promotionalCode", "");
-
-                  Runnable myRunnable = new Runnable() {
-                    @Override
-                    public void run() {
-                      if(resultDelegate!=null)
-                        resultDelegate.success(data);
-                    } // This is your code
-                  };
-
-                  mainHandler.post(myRunnable);
-
-                }else{
-                  //Log.d("FB_APP_LINKS", "Deferred Deeplink Received: null link");
-
-//                  data.put("deeplink", "a deeplink test here");
-//                  data.put("promotionalCode", "a promo test here");
-//
-//                  Runnable myRunnable = new Runnable() {
-//                    @Override
-//                    public void run() {
-//                      if(resultDelegate!=null)
-//                        resultDelegate.success(data);
-//                    } // This is your code
-//                  };
-//
-//                  mainHandler.post(myRunnable);
-
-                }
-
-              }
+            if(appLinkData.getTargetUri()!=null){
+              //Log.d("FB_APP_LINKS", "Deferred Deeplink Received: " + appLinkData.getTargetUri().toString());
+              data.put("deeplink", appLinkData.getTargetUri().toString());
             }
+
+            //Log.d("FB_APP_LINKS", "Deferred Deeplink Received: " + appLinkData.getPromotionCode());
+            if(appLinkData.getPromotionCode()!=null)
+              data.put("promotionalCode", appLinkData.getPromotionCode());
+            else
+              data.put("promotionalCode", "");
+
+            Runnable myRunnable = new Runnable() {
+              @Override
+              public void run() {
+                if(resultDelegate!=null)
+                  resultDelegate.success(data);
+              }
+            };
+
+            mainHandler.post(myRunnable);
+
+          }else{
+            Log.d("FB_APP_LINKS", "Deferred Deeplink Received: null link");
+
+            Runnable myRunnable = new Runnable() {
+              @Override
+              public void run() {
+                if(resultDelegate!=null)
+                  resultDelegate.success(null);
+              }
+            };
+
+            mainHandler.post(myRunnable);
+
+          }
+
+        }
+      }
     );
   }
 
