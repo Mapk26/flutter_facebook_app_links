@@ -47,23 +47,34 @@ public class SwiftFlutterFacebookAppLinksPlugin: NSObject, FlutterPlugin {
     AppLinkUtility.fetchDeferredAppLink { (url, error) in
         if let error = error {
           print("Received error while fetching deferred app link %@", error)
-          result("error");
+          result(nil);
         }
 
         if let url = url {
           print("FB APP LINKS getting url ")
+
+          var mapData : [String: String?] = ["deeplink": url.absoluteString!, "promotionalCode": nil]
+          
+          if let code = AppLinkUtility.appInvitePromotionCodeFromURL(url) {
+            mapData["promotionalCode"] = code
+          } else { // nil
+
+          }
+
           if #available(iOS 10, *) {
             //print("FB APP LINKS getting url iOS 10+ ")
-            result(url.absoluteString)
+            result(mapData)
           } else {
             //print("FB APP LINKS getting url iOS 10- ")
-            result(url.absoluteString)
+            result(mapData)
           }
         }else{
           //print("FB APP LINKS ends with no deeplink ")
-          result("nolink")
+          result(nil)
         }
     }
+
+    
   }
 
   
