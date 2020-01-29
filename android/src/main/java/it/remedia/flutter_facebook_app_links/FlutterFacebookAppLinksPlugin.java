@@ -94,7 +94,7 @@ public class FlutterFacebookAppLinksPlugin implements MethodCallHandler {
             mainHandler.post(myRunnable);
 
           }else{
-            Log.d("FB_APP_LINKS", "Deferred Deeplink Received: null link");
+            //Log.d("FB_APP_LINKS", "Deferred Deeplink Received: null link");
 
             Runnable myRunnable = new Runnable() {
               @Override
