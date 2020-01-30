@@ -67,9 +67,17 @@ Read through the "[Getting Started with App Events for iOS](https://developers.f
  ```
 
  ## About Facebook App Links
- Please refer to the official SDK documentation for [Android] and [iOS](https://developers.facebook.com/docs/app-ads/deep-linking/).
+ Please refer to the official SDK documentation for [Android](https://developers.facebook.com/docs/app-ads/deep-linking/) and [iOS](https://developers.facebook.com/docs/app-ads/deep-linking/).
 
- ## IMPORTANT NOTE
+ ## IMPORTANT NOTES
+ 
+ ### User privacy [DO NOT IGNORE]
+
+ How documented on Facebook [docs](https://developers.facebook.com/docs/app-ads/deep-linking/), starting from v5.0.0 of the SDK, they introduce a flag for disabling automatic SDK initialization to be GDPR compliant.
+ It means that you should collect user consent before you use call the method `initFBLinks()` of this plugin and save the user choice. Moreover, you should give the user a chance to revoke their consent in the future.
+ Please keep in mind that this plugin uses `FacebookSDK.setAutoInitEnabled(true)` in Android and `Settings.isAutoInitEnabled = true` in iOS by default, so the consent must be granted in your Dart code before you call `FlutterFacebookAppLinks.initFBLinks()`.
+
+
  ### Testing deferred deep links
 
  To correctly test deferred deeplinks, DO NOT use the preview of your FB ADS campaign.
