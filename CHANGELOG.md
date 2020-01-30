@@ -1,3 +1,7 @@
+## 1.1.0
+
+* BREAKING CHANGE: it's not necessary anymore to split the code for Android and iOS. In either cases it will return `null` when any deferred deep link is available, or a map containing `deeplink` and `promotionalCode`. The `promotionalCode` can be `null`.
+
 ## 1.0.2+1
 
 * Removed Log from Java code.

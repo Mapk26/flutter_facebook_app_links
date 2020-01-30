@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'dart:io' show Platform;
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class FlutterFacebookAppLinks {
@@ -13,13 +13,14 @@ class FlutterFacebookAppLinks {
 
   static Future<dynamic> initFBLinks() async {
 
-    if (Platform.isAndroid) {
+    try{
       var data = await _channel.invokeMethod('initFBLinks');
-      final Map<String, String> init = new Map.from(data);
-      return init;
-    } else if (Platform.isIOS) {
-      var resutl = await _channel.invokeMethod('initFBLinks');
-      return resutl;
+      final Map<String, String> result = new Map.from(data);
+      return result;
+    }catch(e){
+      debugPrint("Error retrieving deferred deep link: $e");
+
+      return null;
     }
     
   }
