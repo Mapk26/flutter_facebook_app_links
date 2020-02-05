@@ -15,8 +15,12 @@ class FlutterFacebookAppLinks {
 
     try{
       var data = await _channel.invokeMethod('initFBLinks');
+
+      if(data==null) return null;
+
       final Map<String, String> result = new Map.from(data);
       return result;
+      
     }catch(e){
       debugPrint("Error retrieving deferred deep link: $e");
 
