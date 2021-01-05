@@ -8,8 +8,8 @@ First of all, if you don't have one already, you must first create an app at Fac
 
 Get your app id (referred to as `[APP_ID]` below)
 
-
 ### Configure Android
+
 For Android configuration, you can follow the same instructions of the Flutter Facebook App Events plugin:
 Read through the "[Getting Started with App Events for Android](https://developers.facebook.com/docs/app-events/getting-started-app-events-android)" tutuorial and in particular, follow [step 2](https://developers.facebook.com/docs/app-events/getting-started-app-events-android#2--add-your-facebook-app-id) by adding the following into `/app/res/values/strings.xml` (or into respective `debug` or `release` build flavor)
 
@@ -25,13 +25,22 @@ After that, add that string resource reference to your main `AndroidManifest.xml
   android:value="@string/facebook_app_id" />
 ```
 
+If you want to delay event collection (e.g. to obtain GDPR consent), add the following to `AndroidManifest.xml` inside the `<application>` tag:
+
+```xml
+<meta-data android:name="com.facebook.sdk.AutoInitEnabled" android:value="false" />
+<meta-data android:name="com.facebook.sdk.AutoLogAppEventsEnabled"
+           android:value="false"/>
+```
+
+Then after consent is obtained, call `FlutterFacebookAppLinks.consentProvided()` or `FlutterFacebookAppLinks.consentRevoked()` as necessary.
 
 ### Configure iOS
+
 For iOS configuration, you can follow the same instructions of the Flutter Facebook App Events plugin:
 Read through the "[Getting Started with App Events for iOS](https://developers.facebook.com/docs/app-events/getting-started-app-events-ios)" tutuorial and in particular, follow [step 4](https://developers.facebook.com/docs/app-events/getting-started-app-events-ios#plist-config) by opening `info.plist` "As Source Code" and add the following
 
-
- * If your code does not have `CFBundleURLTypes`, add the following just before the final `</dict>` element:
+- If your code does not have `CFBundleURLTypes`, add the following just before the final `</dict>` element:
 
 ```xml
 <key>CFBundleURLTypes</key>
@@ -49,43 +58,45 @@ Read through the "[Getting Started with App Events for iOS](https://developers.f
 <string>[APP_NAME]</string>
 ```
 
- * If your code already contains `CFBundleURLTypes`, insert the following:
+- If your code already contains `CFBundleURLTypes`, insert the following:
 
- ```xml
+```xml
 <array>
-  <dict>
-  <key>CFBundleURLSchemes</key>
-  <array>
-    <string>fb[APP_ID]</string>
-  </array>
-  </dict>
+ <dict>
+ <key>CFBundleURLSchemes</key>
+ <array>
+   <string>fb[APP_ID]</string>
+ </array>
+ </dict>
 </array>
 <key>FacebookAppID</key>
 <string>[APP_ID]</string>
 <key>FacebookDisplayName</key>
 <string>[APP_NAME]</string>
- ```
+```
 
- ## About Facebook App Links
- Please refer to the official SDK documentation for [Android](https://developers.facebook.com/docs/app-ads/deep-linking/) and [iOS](https://developers.facebook.com/docs/app-ads/deep-linking/).
+- After obtaining ATT permission, call call `FlutterFacebookAppLinks.consentProvided()` or `FlutterFacebookAppLinks.consentRevoked()` as necessary.
 
- ## IMPORTANT NOTES
- 
- ### User privacy [DO NOT IGNORE]
+## About Facebook App Links
 
- How documented on Facebook [docs](https://developers.facebook.com/docs/app-ads/deep-linking/), starting from v5.0.0 of the SDK, they introduce a flag for disabling automatic SDK initialization to be GDPR compliant.
- It means that you should collect user consent before you use call the method `initFBLinks()` of this plugin and save the user choice. Moreover, you should give the user a chance to revoke their consent in the future.
- Please keep in mind that this plugin uses `FacebookSDK.setAutoInitEnabled(true)` in Android and `Settings.isAutoInitEnabled = true` in iOS by default, so the consent must be granted in your Dart code before you call `FlutterFacebookAppLinks.initFBLinks()`.
+Please refer to the official SDK documentation for [Android](https://developers.facebook.com/docs/app-ads/deep-linking/) and [iOS](https://developers.facebook.com/docs/app-ads/deep-linking/).
 
+## IMPORTANT NOTES
 
- ### Testing deferred deep links
+### User privacy [DO NOT IGNORE]
 
- To correctly test deferred deeplinks, DO NOT use the preview of your FB ADS campaign.
- Instead, use this tool [APP ADS HELPER](https://developers.facebook.com/tools/app-ads-helper)
+How documented on Facebook [docs](https://developers.facebook.com/docs/app-ads/deep-linking/), starting from v5.0.0 of the SDK, they introduce a flag for disabling automatic SDK initialization to be GDPR compliant.
+It means that you should collect user consent before you use call the method `initFBLinks()` of this plugin and save the user choice. Moreover, you should give the user a chance to revoke their consent in the future.
+Please keep in mind that this plugin uses `FacebookSDK.setAutoInitEnabled(true)` in Android and `Settings.isAutoInitEnabled = true` in iOS by default, so the consent must be granted in your Dart code before you call `FlutterFacebookAppLinks.initFBLinks()`.
 
- At the end of the page you will find a "Test deep link" button, 
- click on it and type your custom url scheme (deeplink), for example: myawesomeapp://screen/login
+### Testing deferred deep links
 
- Select the second checkbox (or both). Remember that to make it works, you'll need the Facebook app installed on your device (Android or iPhone) and you must be logged in with the same account you're using in the Facebook Developers console.
+To correctly test deferred deeplinks, DO NOT use the preview of your FB ADS campaign.
+Instead, use this tool [APP ADS HELPER](https://developers.facebook.com/tools/app-ads-helper)
 
- Your app doesn't need to be published on the store, simply uninstall it and re-install using Android Studio/VSCode or XCode after you've sent the deferred deep link.
+At the end of the page you will find a "Test deep link" button,
+click on it and type your custom url scheme (deeplink), for example: myawesomeapp://screen/login
+
+Select the second checkbox (or both). Remember that to make it works, you'll need the Facebook app installed on your device (Android or iPhone) and you must be logged in with the same account you're using in the Facebook Developers console.
+
+Your app doesn't need to be published on the store, simply uninstall it and re-install using Android Studio/VSCode or XCode after you've sent the deferred deep link.

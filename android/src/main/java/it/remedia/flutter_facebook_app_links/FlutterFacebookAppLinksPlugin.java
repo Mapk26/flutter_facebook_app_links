@@ -49,6 +49,14 @@ public class FlutterFacebookAppLinksPlugin implements MethodCallHandler {
     } else if(call.method.equals("initFBLinks")){
 
       initFBLinks(result);
+    } else if (call.method.equals("consentProvided")) {
+      FacebookSdk.setAutoLogAppEventsEnabled(true);
+      FacebookSdk.setAutoInitEnabled(true);
+      FacebookSdk.fullyInitialize();
+    } else if (call.method.equals("consentRevoked")) {
+      FacebookSdk.setAutoLogAppEventsEnabled(false);
+      FacebookSdk.setAutoInitEnabled(false);
+      FacebookSdk.fullyInitialize();
     } else {
       result.notImplemented();
     }
@@ -63,7 +71,6 @@ public class FlutterFacebookAppLinksPlugin implements MethodCallHandler {
     final Handler mainHandler = new Handler(mContext.getMainLooper());
 
     // Get user consent
-    FacebookSdk.setAutoInitEnabled(true);
     FacebookSdk.fullyInitialize();
     AppLinkData.fetchDeferredAppLinkData(mContext,
       new AppLinkData.CompletionHandler() {

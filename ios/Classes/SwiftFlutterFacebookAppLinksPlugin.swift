@@ -12,15 +12,25 @@ public class SwiftFlutterFacebookAppLinksPlugin: NSObject, FlutterPlugin {
 
     // Get user consent
     print("FB APP LINK registering plugin")
-    Settings.isAutoInitEnabled = true
     ApplicationDelegate.initializeSDK(nil)
 
     registrar.addMethodCallDelegate(instance, channel: channel)
   }
 
   public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-    
     switch call.method {
+        case "consentProvided":
+            Settings.isAutoInitEnabled = true
+            Settings.isAutoLogAppEventsEnabled = true
+            ApplicationDelegate.initializeSDK(nil)
+            result(nil)
+            break
+        case "consentRevoked":
+            Settings.isAutoInitEnabled = false
+            Settings.isAutoLogAppEventsEnabled = false
+            ApplicationDelegate.initializeSDK(nil)
+            result(nil)
+            break
         case "getPlatformVersion":
             handleGetPlatformVersion(call, result: result)
             break
@@ -28,15 +38,12 @@ public class SwiftFlutterFacebookAppLinksPlugin: NSObject, FlutterPlugin {
             print("FB APP LINK launched")
             handleFBAppLinks(call, result: result)
             break
-        
         default:
             result(FlutterMethodNotImplemented)
         }
-    
   }
 
   private func handleGetPlatformVersion(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-    
     result("iOS " + UIDevice.current.systemVersion)
   }
 
@@ -53,7 +60,7 @@ public class SwiftFlutterFacebookAppLinksPlugin: NSObject, FlutterPlugin {
           print("FB APP LINKS getting url: ", String(url.absoluteString) )
 
           var mapData : [String: String?] = ["deeplink": url.absoluteString, "promotionalCode": nil]
-          
+
           if let code = AppLinkUtility.appInvitePromotionCode(from: url) {
             print("promotional code " + String(code))
             mapData["promotionalCode"] = code
@@ -72,10 +79,8 @@ public class SwiftFlutterFacebookAppLinksPlugin: NSObject, FlutterPlugin {
         }
     }
 
-    
+
   }
 
-  
+
 }
-
-
