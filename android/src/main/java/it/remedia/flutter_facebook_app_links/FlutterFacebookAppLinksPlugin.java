@@ -53,10 +53,12 @@ public class FlutterFacebookAppLinksPlugin implements MethodCallHandler {
       FacebookSdk.setAutoLogAppEventsEnabled(true);
       FacebookSdk.setAutoInitEnabled(true);
       FacebookSdk.fullyInitialize();
+      result.success("");
     } else if (call.method.equals("consentRevoked")) {
       FacebookSdk.setAutoLogAppEventsEnabled(false);
       FacebookSdk.setAutoInitEnabled(false);
       FacebookSdk.fullyInitialize();
+      result.success("");
     } else {
       result.notImplemented();
     }
