@@ -3,8 +3,8 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'flutter_facebook_app_links'
-  s.version          = '0.0.2'
-  s.summary          = 'A new flutter plugin project.'
+  s.version          = '0.0.3'
+  s.summary          = 'A Flutter plugin to catch deferred deep links from Facebbok ads with FB App Links SDK.'
   s.description      = <<-DESC
 Flutter plugin for Facebook App Links SDK
                        DESC
@@ -15,7 +15,7 @@ Flutter plugin for Facebook App Links SDK
   s.source_files = 'Classes/**/*'
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
-  s.dependency 'FBSDKCoreKit', '~> 7.1.0'
+  s.dependency 'FBSDKCoreKit', '~> 9.0.0'
   s.swift_version       = '4.0'
 
   s.ios.deployment_target = '8.0'

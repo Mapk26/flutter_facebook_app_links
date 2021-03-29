@@ -1,3 +1,7 @@
+## 1.1.1+4
+
+* Updated FBSDK v7 to v9
+
 ## 1.1.1+3
 
 * Updated FBSDK v5 to v7
