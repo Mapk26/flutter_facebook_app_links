@@ -1,3 +1,8 @@
+## 1.1.1+3
+
+* Updated FBSDK v5 to v7
+* Added MIT License
+
 ## 1.1.0+1
 
 * Fixed an error caused from iterating on a null data.
