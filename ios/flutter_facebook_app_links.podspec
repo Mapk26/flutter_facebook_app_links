@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
   s.source_files = 'Classes/**/*'
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
-  s.dependency 'FBSDKCoreKit', '~> 8.2'
+  s.dependency 'FBSDKCoreKit', '~> 9.2'
   s.swift_version = '4.0'
 
   s.ios.deployment_target = '9.0'

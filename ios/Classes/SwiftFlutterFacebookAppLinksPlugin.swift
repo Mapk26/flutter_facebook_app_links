@@ -20,13 +20,11 @@ public class SwiftFlutterFacebookAppLinksPlugin: NSObject, FlutterPlugin {
   public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
     switch call.method {
         case "consentProvided":
-            Settings.isAutoInitEnabled = true
             Settings.isAutoLogAppEventsEnabled = true
             ApplicationDelegate.initializeSDK(nil)
             result(nil)
             break
         case "consentRevoked":
-            Settings.isAutoInitEnabled = false
             Settings.isAutoLogAppEventsEnabled = false
             ApplicationDelegate.initializeSDK(nil)
             result(nil)

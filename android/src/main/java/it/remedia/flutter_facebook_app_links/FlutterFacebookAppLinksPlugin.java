@@ -47,7 +47,6 @@ public class FlutterFacebookAppLinksPlugin implements MethodCallHandler {
     if (call.method.equals("getPlatformVersion")) {
       result.success("Android " + android.os.Build.VERSION.RELEASE);
     } else if(call.method.equals("initFBLinks")){
-
       initFBLinks(result);
     } else if (call.method.equals("consentProvided")) {
       FacebookSdk.setAutoLogAppEventsEnabled(true);
