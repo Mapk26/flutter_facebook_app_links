@@ -18,7 +18,7 @@ class FlutterFacebookAppLinks {
 
       if(data==null) return null;
 
-      final Map<String, String> result = new Map.from(data);
+      final Map<String, dynamic> result = new Map.from(data);
       return result;
       
     }catch(e){

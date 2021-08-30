@@ -18,6 +18,6 @@ Flutter plugin for Facebook App Links SDK
   s.dependency 'FBSDKCoreKit', '~> 9.1.0'
   s.swift_version       = '4.0'
 
-  s.ios.deployment_target = '9.0'
+  s.ios.deployment_target = '8.0'
 end
 

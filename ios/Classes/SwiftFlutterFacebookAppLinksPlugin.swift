@@ -12,9 +12,8 @@ public class SwiftFlutterFacebookAppLinksPlugin: NSObject, FlutterPlugin {
 
     // Get user consent
     print("FB APP LINK registering plugin")
-    Settings.isAutoInitEnabled = true
-    ApplicationDelegate.initializeSDK(nil)
-
+    instance.initializeSDK()
+    
     registrar.addMethodCallDelegate(instance, channel: channel)
   }
 
@@ -73,6 +72,10 @@ public class SwiftFlutterFacebookAppLinksPlugin: NSObject, FlutterPlugin {
     }
 
     
+  }
+
+  public func initializeSDK() {
+      ApplicationDelegate.initializeSDK(nil)
   }
 
   
