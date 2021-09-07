@@ -1,3 +1,7 @@
+## 2.0.0+2
+
+* Null safety
+
 ## 1.1.1+4
 
 * Updated FBSDK v7 to v9
