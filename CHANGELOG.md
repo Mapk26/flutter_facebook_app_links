@@ -1,3 +1,6 @@
+## 3.0.0+5
+* README updated
+
 ## 3.0.0+4
 * FBSDKCoreKit 14.1.0
 * Code refactoring

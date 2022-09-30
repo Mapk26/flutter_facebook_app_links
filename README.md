@@ -13,16 +13,17 @@ Get your app id (referred to as `[APP_ID]` below)
 For Android configuration, you can follow the same instructions of the Flutter Facebook App Events plugin:
 Read through the "[Getting Started with App Events for Android](https://developers.facebook.com/docs/app-events/getting-started-app-events-android)" tutuorial and in particular, follow [step 2](https://developers.facebook.com/docs/app-events/getting-started-app-events-android#2--add-your-facebook-app-id) by adding the following into `/app/res/values/strings.xml` (or into respective `debug` or `release` build flavor)
 
+configure inside android/app/main/res/values/strings.xml the above values (without square brackets):
 ```xml
-<string name="facebook_app_id">[APP_ID]</string>
+<string name="facebook_app_id">[your_app_id]</string>
+<string name="facebook_client_token">[your_client_token]</string>
 ```
 
-After that, add that string resource reference to your main `AndroidManifest.xml` file
+then, add that string resource reference to your main `AndroidManifest.xml` file, within <application>...</application>
 
 ```xml
-<meta-data
-  android:name="com.facebook.sdk.ApplicationId"
-  android:value="@string/facebook_app_id" />
+<meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id" />
+<meta-data android:name="com.facebook.sdk.ClientToken" android:value="@string/facebook_client_token"/>
 ```
 
 
