@@ -75,7 +75,7 @@ public class SwiftFlutterFacebookAppLinksPlugin: NSObject, FlutterPlugin {
   }
 
   public func initializeSDK() {
-      ApplicationDelegate.initializeSDK(nil)
+      ApplicationDelegate.shared.initializeSDK()
   }
 
   
