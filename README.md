@@ -66,6 +66,30 @@ Read through the "[Getting Started with App Events for iOS](https://developers.f
 <string>[APP_NAME]</string>
  ```
 
+## How to use
+```dart
+import 'dart:io' show Platform;
+...
+...
+/// FB Deferred Deeplinks
+void initFBDeferredDeeplinks() async {
+
+  String deepLinkUrl;
+  // Platform messages may fail, so we use a try/catch PlatformException.
+  try {
+
+    deepLinkUrl = await FlutterFacebookAppLinks.initFBLinks();
+    if(Platform.isIOS)
+      deepLinkUrl = await FlutterFacebookAppLinks.getDeepLink();
+
+    /// do what you need with the deeplink...
+    /// ...
+  }catche(e){
+    /// in case of error...
+  }
+}
+```
+
  ## About Facebook App Links
  Please refer to the official SDK documentation for [Android](https://developers.facebook.com/docs/app-ads/deep-linking/) and [iOS](https://developers.facebook.com/docs/app-ads/deep-linking/).
 

@@ -1,3 +1,9 @@
+## 3.0.0+4
+* FBSDKCoreKit 14.1.0
+* Code refactoring
+* BREAKING CHANGE: in Android the method initFBLinks() will return a String with the url of the deferred deep link (empty otherwise). 
+For iOS it is necessary to call getDeepLink() after initFBLinks().
+
 ## 2.0.0+2
 
 * Null safety
