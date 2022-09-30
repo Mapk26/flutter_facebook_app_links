@@ -15,16 +15,28 @@ class FlutterFacebookAppLinks {
 
     try{
       var data = await _channel.invokeMethod('initFBLinks');
-
-      if(data==null) return null;
-
-      final Map<String, dynamic> result = new Map.from(data);
-      return result;
+      print('Deferred FB Link: $data');
+      return data ?? '';
       
     }catch(e){
       debugPrint("Error retrieving deferred deep link: $e");
 
       return null;
+    }
+    
+  }
+
+  static Future<String> getDeepLink() async {
+
+    try{
+      var data = await _channel.invokeMethod('getDeepLinkUrl');
+      print('Deferred FB Link: $data');
+      return data ?? '';
+      
+    }catch(e){
+      debugPrint("Error retrieving deferred deep link: $e");
+
+      return '';
     }
     
   }
