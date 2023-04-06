@@ -18,6 +18,7 @@ public class SwiftFlutterFacebookAppLinksPlugin: NSObject, FlutterPlugin {
     instance.initializeSDK()
     
     registrar.addMethodCallDelegate(instance, channel: channel)
+    registrar.addApplicationDelegate(instance)
   }
 
   public func detachFromEngine(for registrar: FlutterPluginRegistrar) {
