@@ -1,3 +1,6 @@
+## 3.0.1+6
+* FBSDKCoreKit 14.1.0- -> 15.1 
+
 ## 3.0.0+5
 * README updated
 
