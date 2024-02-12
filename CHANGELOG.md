@@ -1,3 +1,8 @@
+## 3.0.2
+* initFBLinks() now returns, for Android, an empty String when the deferred link is not available. 
+Before this update, the method could return a null value in case of errors.
+For iOS use method getDeepLink().
+
 ## 3.0.1+8
 * FBSDKCoreKit 15.1- -> 16.3
 * Android Facebook SDK -> 16.3
