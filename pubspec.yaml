@@ -1,11 +1,11 @@
 name: flutter_facebook_app_links
 description: A Flutter plugin to catch deferred deep links from Facebbok ads with FB App Links SDK.
-version: 3.0.1+7
+version: 3.0.1+8
 homepage: https://github.com/Mapk26/flutter_facebook_app_links
 
 environment:
-  sdk: '>=2.12.0 <3.0.0'
-  flutter: '>=2.2.1'
+  sdk: '>=3.2.2 <4.0.0'
+  flutter: '>=3.2.2'
 
 dependencies:
   flutter:
