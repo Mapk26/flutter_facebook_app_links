@@ -19,6 +19,8 @@ ios/Pods
 ios/Pods/**
 
 pubspec.lock
+example/.flutter-plugins
+example/.flutter-plugins-dependencies
 
 # Built application files
 *.apk
