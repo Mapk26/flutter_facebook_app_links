@@ -80,12 +80,13 @@ void initFBDeferredDeeplinks() async {
   try {
 
     deepLinkUrl = await FlutterFacebookAppLinks.initFBLinks();
-    if(Platform.isIOS)
-      deepLinkUrl = await FlutterFacebookAppLinks.getDeepLink();
+    if(Platform.isIOS) {
+    deepLinkUrl = await FlutterFacebookAppLinks.getDeepLink();
+    }
 
     /// do what you need with the deeplink...
     /// ...
-  }catche(e){
+  }catch(e){
     /// in case of error...
   }
 }
