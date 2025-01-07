@@ -1,3 +1,7 @@
+## 3.0.3
+* FBSDKCoreKit 16.0- -> 17.4
+* Added methos activateSDK()
+
 ## 3.0.2
 * initFBLinks() now returns, for Android, an empty String when the deferred link is not available. 
 Before this update, the method could return a null value in case of errors.
