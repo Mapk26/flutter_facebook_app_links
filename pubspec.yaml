@@ -4,7 +4,7 @@ version: 3.0.3
 homepage: https://github.com/Mapk26/flutter_facebook_app_links
 
 environment:
-  sdk: '>=3.2.2 <4.0.0'
+  sdk: '>=3.2.3 <4.0.0'
   flutter: '>=3.2.2'
 
 dependencies:
