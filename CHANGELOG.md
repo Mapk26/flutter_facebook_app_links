@@ -1,3 +1,8 @@
+## 3.1.0
+* Android: MinSDK 21, CompileSDK 35
+* Android Facebook SDK 18.1.3
+* Update example folder
+
 ## 3.0.8
 * FBSDKCoreKit 17.4- -> 18.0
 

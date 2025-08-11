@@ -1,37 +1,16 @@
-# flutter_facebook_app_links_example
+# hello_example
 
-Demonstrates how to use the flutter_facebook_app_links plugin.
+Demonstrates how to use the hello plugin.
 
 ## Getting Started
 
-You can use the following code inside a Stateful Widget, usually the root so that it will be triggered when your app is opened:
+This project is a starting point for a Flutter application.
 
-```dart
-import 'package:flutter_facebook_app_links/flutter_facebook_app_links.dart';
+A few resources to get you started if this is your first Flutter project:
 
-void catchFBDeferredDeeplinks() async {
-    
-    try{
-      Map<String, String> data = await FlutterFacebookAppLinks.initFBLinks();
+- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
+- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-      if(data!=null && data['deeplink']!=null && data['deeplink'].isNotEmpty){
-        /// do stuffs with the deeplink
-      }
-
-      if(data!=null && data['promotionalCode']!=null && data['promotionalCode'].isNotEmpty){
-        /// do stuffs with the promo code
-      }
-
-    }catch(e){
-      print('Error on FB APP LINKS');
-    }  
-   
-}
-
-
-@override
-void initState() {
-    super.initState();
-    catchFBDeferredDeeplinks();
-}
-```
+For help getting started with Flutter development, view the
+[online documentation](https://docs.flutter.dev/), which offers tutorials,
+samples, guidance on mobile development, and a full API reference.
