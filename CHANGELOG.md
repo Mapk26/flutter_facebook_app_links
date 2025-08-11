@@ -1,3 +1,6 @@
+## 3.0.8
+* FBSDKCoreKit 17.4- -> 18.0
+
 ## 3.0.3
 * FBSDKCoreKit 16.0- -> 17.4
 * Added methos activateSDK()
