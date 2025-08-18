@@ -31,6 +31,9 @@ public class SwiftFlutterFacebookAppLinksPlugin: NSObject, FlutterPlugin {
     case "initFBLinks":
       print("FB APP LINK launched")
       handleFBAppLinks(call, result: result)
+    case "getDeepLinkUrl":
+      print("FB APP LINK getDeepLinkUrl called")
+      handleGetDeepLinkUrl(call, result: result)
     default:
       result(FlutterMethodNotImplemented)
     }
@@ -68,6 +71,25 @@ public class SwiftFlutterFacebookAppLinksPlugin: NSObject, FlutterPlugin {
       } else {
         // no deep link received
         result(nil)
+      }
+    }
+  }
+
+  private func handleGetDeepLinkUrl(_: FlutterMethodCall, result: @escaping FlutterResult) {
+    print("FB APP LINKS getDeepLinkUrl Starting ")
+
+    AppLinkUtility.fetchDeferredAppLink { url, error in
+      if let error = error {
+        print("Received error while fetching deferred app link %@", error)
+        result("")
+      }
+
+      if let url = url {
+        print("FB APP LINKS getDeepLinkUrl getting url: ", String(url.absoluteString))
+        result(url.absoluteString)
+      } else {
+        // no deep link received
+        result("")
       }
     }
   }

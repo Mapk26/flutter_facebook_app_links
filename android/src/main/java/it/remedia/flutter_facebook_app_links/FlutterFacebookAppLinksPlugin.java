@@ -11,35 +11,55 @@ import com.facebook.FacebookSdk;
 import java.util.HashMap;
 import java.util.Map;
 
+import io.flutter.embedding.engine.plugins.FlutterPlugin;
+import io.flutter.embedding.engine.plugins.activity.ActivityAware;
+import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
-import io.flutter.plugin.common.PluginRegistry;
-import io.flutter.plugin.common.PluginRegistry.Registrar;
 
 /** FlutterFacebookAppLinksPlugin */
-public class FlutterFacebookAppLinksPlugin implements MethodCallHandler {
+public class FlutterFacebookAppLinksPlugin implements FlutterPlugin, MethodCallHandler, ActivityAware {
 
   private Context mContext;
   private Activity mActivity;
+  private MethodChannel channel;
 
   private static final String CHANNEL = "plugins.remedia.it/flutter_facebook_app_links";
 
-  /** Plugin registration. */
-  public static void registerWith(Registrar registrar) {
-    final MethodChannel channel = new MethodChannel(registrar.messenger(), CHANNEL);
-
-    FlutterFacebookAppLinksPlugin instance = new FlutterFacebookAppLinksPlugin(registrar);
-    channel.setMethodCallHandler(instance);
+  @Override
+  public void onAttachedToEngine(FlutterPluginBinding binding) {
+    channel = new MethodChannel(binding.getBinaryMessenger(), CHANNEL);
+    channel.setMethodCallHandler(this);
+    mContext = binding.getApplicationContext();
   }
 
-  // Constructor to initialize plugin inside the 'registerWith' method
-  private FlutterFacebookAppLinksPlugin(PluginRegistry.Registrar registrar){
+  @Override
+  public void onDetachedFromEngine(FlutterPluginBinding binding) {
+    channel.setMethodCallHandler(null);
+    channel = null;
+    mContext = null;
+  }
 
-    this.mContext = registrar.activeContext();
-    this.mActivity = registrar.activity();
+  @Override
+  public void onAttachedToActivity(ActivityPluginBinding binding) {
+    mActivity = binding.getActivity();
+  }
 
+  @Override
+  public void onDetachedFromActivity() {
+    mActivity = null;
+  }
+
+  @Override
+  public void onDetachedFromActivityForConfigChanges() {
+    mActivity = null;
+  }
+
+  @Override
+  public void onReattachedToActivityForConfigChanges(ActivityPluginBinding binding) {
+    mActivity = binding.getActivity();
   }
 
   @Override
@@ -48,6 +68,8 @@ public class FlutterFacebookAppLinksPlugin implements MethodCallHandler {
       result.success("Android " + android.os.Build.VERSION.RELEASE);
     } else if(call.method.equals("initFBLinks")){
       initFBLinks(result);
+    } else if (call.method.equals("getDeepLinkUrl")) {
+      getDeepLinkUrl(result);
     } else if (call.method.equals("consentProvided")) {
       FacebookSdk.setAutoLogAppEventsEnabled(true);
       FacebookSdk.setAutoInitEnabled(true);
@@ -61,6 +83,53 @@ public class FlutterFacebookAppLinksPlugin implements MethodCallHandler {
     } else {
       result.notImplemented();
     }
+  }
+
+  private void getDeepLinkUrl(Result result) {
+    //Log.d("FB_APP_LINKS", "Facebook App Links getDeepLinkUrl called");
+
+    final Result resultDelegate = result;
+    // Get a handler that can be used to post to the main thread
+    final Handler mainHandler = new Handler(mContext.getMainLooper());
+
+    // Get user consent
+    FacebookSdk.fullyInitialize();
+    AppLinkData.fetchDeferredAppLinkData(mContext,
+      new AppLinkData.CompletionHandler() {
+        @Override
+        public void onDeferredAppLinkDataFetched(AppLinkData appLinkData) {
+          // Process app link data
+          if(appLinkData!=null && appLinkData.getTargetUri()!=null){
+            //Log.d("FB_APP_LINKS", "Deep Link URL Received: " + appLinkData.getTargetUri().toString());
+            
+            Runnable myRunnable = new Runnable() {
+              @Override
+              public void run() {
+                if(resultDelegate!=null)
+                  resultDelegate.success(appLinkData.getTargetUri().toString());
+              }
+            };
+
+            mainHandler.post(myRunnable);
+
+          }else{
+            //Log.d("FB_APP_LINKS", "Deep Link URL Received: null link");
+
+            Runnable myRunnable = new Runnable() {
+              @Override
+              public void run() {
+                if(resultDelegate!=null)
+                  resultDelegate.success("");
+              }
+            };
+
+            mainHandler.post(myRunnable);
+
+          }
+
+        }
+      }
+    );
   }
 
   private void initFBLinks(Result result) {

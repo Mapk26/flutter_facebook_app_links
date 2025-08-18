@@ -25,6 +25,18 @@ class FlutterFacebookAppLinks {
     }
   }
 
+  static Future<String> getDeepLink() async {
+    try {
+      var data = await _channel.invokeMethod('getDeepLinkUrl');
+      print('Deferred FB Link: $data');
+      return data ?? '';
+    } catch (e) {
+      debugPrint("Error retrieving deferred deep link: $e");
+
+      return '';
+    }
+  }
+
   static Future<dynamic> consentProvided() {
     return _channel.invokeMethod('consentProvided');
   }
