@@ -1,5 +1,5 @@
-group 'it.remedia.flutter_facebook_app_links'
-version '3.0'
+group = 'it.remedia.flutter_facebook_app_links'
+version = '3.0.5'
 
 buildscript {
     repositories {
@@ -8,7 +8,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.3.1'
+        classpath("com.android.tools.build:gradle:8.7.3")
     }
 }
 
@@ -22,10 +22,16 @@ rootProject.allprojects {
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 28
+    namespace = "it.remedia.flutter_facebook_app_links"
+    compileSdkVersion 35
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
+    }
 
     defaultConfig {
-        minSdkVersion 19
+        minSdkVersion 21
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     lintOptions {
@@ -37,7 +43,7 @@ android {
     }
 
     dependencies {
-        implementation 'com.facebook.android:facebook-core:16.3.0'
-        implementation 'com.facebook.android:facebook-applinks:16.3.0'
+        implementation 'com.facebook.android:facebook-core:18.1.3'
+        implementation 'com.facebook.android:facebook-applinks:18.1.3'
     }
 }
